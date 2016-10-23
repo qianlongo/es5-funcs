@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./es5-funcs.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <div class="wrap">
+      <div class="container foreach">
+        <h2>foreach</h2>
+      </div>
+
+      <div class="container map">
+        <h2>map</h2>
+      </div>
+
+      <div class="container filter">
+        <h2>filter</h2>
+      </div>
+
+      <div class="container some">
+        <h2>some</h2>
+      </div>
+
+      <div class="container every">
+        <h2>every</h2>
+      </div>
+
+      <div class="container indexOf">
+        <h2>indexOf</h2>
+      </div>
+
+      <div class="container lastIndexOf">
+        <h2>lastIndexOf</h2>
+      </div>
+
+      <div class="container reduce">
+        <h2>reduce</h2>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var insertCode = function (parent, code) {
+              code = typeof code == 'object' ? JSON.stringify(code) : code;
+              var codeStr = '<div class="code"><pre>'+ code +'</pre></div> ';
+
+              $(parent).append($(codeStr));
+            };
+
+        var app = {
+          init: function () {
+            for (var key in this) {
+              if (key != 'init') {
+                this[key]();
+              }
+            }
+          },
+          forEach: function () {
+            var arr = [1, 2, 3, 4, 5, 6];
+
+            arr.forEach(function (e, i, array) {
+              insertCode('.foreach', {
+                e: e,
+                i: i,
+                array: array
+              });
+            })
+          },
+          map: function () {
+            var arr = [1, 2, 3, 4, 5];
+
+            var newArr = arr.map(function (e, i, array) {
+              return 'hello ' +  e;
+            });
+
+            var newArr2 = arr.map(function (e, i, array) {
+              'hello ' +  e;
+            })
+            insertCode('.map', newArr);
+            insertCode('.map', newArr2);
+          },
+          filter: function () {
+            var arr = [0, 1, 2, 3, 4, 5];
+
+            var newArr = arr.filter(function (e, i, array) {
+              return e;
+            });
+
+            var newArr2 = arr.filter(function (e, i, array) {
+              if (e >= 2) return true;
+            })
+
+            insertCode('.filter', newArr);
+            insertCode('.filter', newArr2);
+
+          },
+          some: function () {
+            var arr = [0, 1, 2, 3, 4, 5];
+
+            var result = arr.some(function (e, i, array) {
+              if (e === 3) {return true};
+            });
+
+            insertCode('.some', result);
+          },
+          every: function () {
+            var arr = [0, 1, 2, 3, 4, 5],
+                result = arr.every(function (e, i, array) {
+                  if (e > 3) {return true};
+                });
+            insertCode('.every', result);
+
+          },
+          indexOf: function () {
+            var arr = [0, 1, 2, 3, 4, 5];
+
+            insertCode('.indexOf', arr.indexOf(1));
+            insertCode('.indexOf', arr.indexOf(3, 'qianlong'));
+            insertCode('.indexOf', arr.indexOf(3, 4));
+            insertCode('.indexOf', arr.indexOf(3, '4'));
+            insertCode('.indexOf', arr.indexOf('3'));
+          },
+          lastIndexOf: function () {
+            var arr = [0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0];
+
+            insertCode('.lastIndexOf', arr.lastIndexOf(1));
+            insertCode('.lastIndexOf', arr.lastIndexOf(3, 'qianlong'));
+            insertCode('.lastIndexOf', arr.lastIndexOf(3, 4));
+            insertCode('.lastIndexOf', arr.lastIndexOf(3, '4'));
+            insertCode('.lastIndexOf', arr.lastIndexOf('3'));
+          },
+          reduce: function () {
+            var arr = [0, 1, 2, 3, 4, 5],
+                sum = arr.reduce(function (init, cur, i, array) {
+                  return init + cur;
+                });
+                insertCode('.reduce', sum);
+          }
+        };
+
+        app.init();
+      })()
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
